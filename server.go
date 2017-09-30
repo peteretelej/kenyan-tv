@@ -70,15 +70,16 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "index.html")
 }
 
-type ApiResponse struct {
+// APIResponse is the /api response structure, rendered as json
+type APIResponse struct {
 	Code    int         `json:"code"`
 	Message string      `json:"message"`
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func (a *ApiResponse) render(w http.ResponseWriter) {
+func (a *APIResponse) render(w http.ResponseWriter) {
 	if a == nil {
-		a = &ApiResponse{}
+		a = &APIResponse{}
 	}
 
 	if a.Data == nil {
@@ -118,7 +119,7 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 	//entity := r.URL.Query().Get("e")
 
 	if resource == "channels" {
-		api := &ApiResponse{
+		api := &APIResponse{
 			Data: channels,
 		}
 		api.render(w)
