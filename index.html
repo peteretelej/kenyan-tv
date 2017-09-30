@@ -12,16 +12,21 @@
 			<div class="navbar">
 				<div class="navbar-brand">
 					<div class="navbar-item">
-						Watch Kenyan TV Online
+						Watch Kenyan TV Live Online
 					</div>
 				</div>
 			</div><!--/.navbar-->
 
-			<channel-listing></channel-listing>
+			<channel-listing v-bind:channels="channels"></channel-listing>
+
 		</div><!--/#app-->
 
-		<script src="/static/js/vue.js"></script>
+		<script src="/static/js/vendor/axios.min.js"></script>
+		<script src="/static/js/vendor/vue.js"></script>
 		<script src="/static/js/home.js"></script>
 		<script src="/static/js/main.js"></script>
+		<script>
+			// TODO: Add serviceworker
+		</script>
 	</body>
 </html>
