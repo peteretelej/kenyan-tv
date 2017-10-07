@@ -1,5 +1,9 @@
 {
     "name": "Kenyan Live TV",
+    "short_name": "Kenyan TV",
+    "short_name": "/",
+    "display": "standalone",
+    "description": "Watch Kenya TV Livestreams online.",
     "icons": [
         {
             "src": "/static/icons/android-chrome-192x192.png",
@@ -12,7 +16,6 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "display": "standalone"
+    "theme_color": "#eeeeee",
+    "background_color": "#eeeeee"
 }

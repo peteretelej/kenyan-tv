@@ -3,12 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Kenyan TV Online</title>
-		<meta name="description" content="Kenya TV Live: Watch Kenyan TV channels live">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="manifest" href="/static/manifest.json">
+		<meta name="description" content="Kenya TV Live: Watch Kenyan TV channels live">
+		<meta name="theme-color" content="#eeeeee">
 		<link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
-		<link rel="manifest" href="/static/manifest.json">
 		<link rel="mask-icon" href="/static/icons/safari-pinned-tab.svg" color="#5bbad5">
 		<link rel="shortcut icon" href="/static/icons/favicon.ico">
 		<meta name="apple-mobile-web-app-title" content="Kenyan Live TV">
@@ -43,10 +44,10 @@
 					</div>
 				</div>
 			</div><!--/offline-->
-			<div class="section">
+			<div class="section" v-cloak>
 				<div class="container">
-					<div class="columns" v-if="currentView==='home'">
-						<div class="column is-3">
+					 <div class="columns" v-if="currentView==='home'">
+						<div class="column is-2">
 							<div class="menu" style="">
 								<div class="menu-label">
 									Kenyan TV
@@ -66,7 +67,7 @@
 								</ul>
 							</div><!--/.menu-->
 						</div><!--/.column-->
-						<div class="column is-9">
+						<div class="column is-10">
 							<div v-if="currentChannel">
 								<keep-alive>
 									<current-channel v-bind:channel="currentChannel"></current-channel>

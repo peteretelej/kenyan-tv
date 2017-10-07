@@ -1,9 +1,14 @@
-var cacheName = "theoktv-v3"
+var cacheName = "theoktv-v4"
 self.addEventListener("install", function(event){
 	event.waitUntil(
 		caches.open(cacheName).then(function(cache){
 			cache.addAll([
 				"/",
+				"/static/manifest.json",
+				"/static/icons/apple-touch-icon.png",
+				"/static/icons/favicon-32x32.png",
+				"/static/icons/favicon-16x16.png",
+				"/static/icons/browserconfig.xml",
 				"/static/css/font-awesome/css/font-awesome.min.css",
 				"/static/css/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0",
 				"/static/css/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0",
