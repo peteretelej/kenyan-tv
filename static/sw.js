@@ -1,4 +1,4 @@
-var cacheName = "theoktv-v14"
+var cacheName = "theoktv-v3"
 self.addEventListener("install", function(event){
 	event.waitUntil(
 		caches.open(cacheName).then(function(cache){
@@ -7,10 +7,8 @@ self.addEventListener("install", function(event){
 				"/static/css/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0",
 				"/static/css/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0",
 				"/static/css/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0",
-				/*
 				"/static/js/home.js",
 				"/static/js/main.js",
-				*/
 				"/static/css/bulma.min.css",
 				"/static/js/vendor/axios.min.js",
 				"/static/js/vendor/vue.js"
