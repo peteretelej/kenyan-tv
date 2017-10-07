@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Kenyan TV Online</title>
+		<meta name="description" content="Kenya TV Live: Watch Kenyan TV channels live">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="/static/css/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/static/css/bulma.min.css">
+		<style>
+			[v-cloak] { display: none; }
+			a.channel-link{ color: #eee; }
+			a.channel-link:hover{color: #333 }
+		</style>
+	</head>
+	<body style="background-color:#333">
+		<div id="app">
+			<div class="navbar is-dark">
+				<div class="navbar-brand">
+					<div class="navbar-item">
+						Watch Kenyan TV Live Online
+					</div>
+				</div>
+			</div><!--/.navbar-->
+			<div v-if="offline" v-cloak>
+				<div class="hero is-large is-warning">
+					<div class="container">
+						<div class="hero-body">
+							<h1 class="title">Offline <span class="icon"><i class="fa fa-frown-o"></i></span></h1>
+							<h2 class="subtitle">You're currently offline, check your internet connection.</h2>
+						</div>
+					</div>
+				</div>
+			</div><!--/offline-->
+			<div class="section">
+				<div class="container">
+					<div class="columns" v-if="currentView==='home'">
+						<div class="column is-3">
+							<div class="menu" style="">
+								<div class="menu-label">
+									Kenyan TV
+								</div>
+								<ul class="menu-list">
+									<li v-for="channel in channels" v-bind:channel="channel">
+										<a v-on:click="changeChannel(channel)" class="channel-link">{{channel.name}}</a>
+									</li>
+								</ul>
+								<div class="menu-label">
+									International TV
+								</div>
+								<ul class="menu-list">
+									<li v-for="channel in intlchannels" v-bind:channel="channel">
+										<a v-on:click="changeChannel(channel)" class="channel-link">{{channel.name}}</a>
+									</li>
+								</ul>
+							</div><!--/.menu-->
+						</div><!--/.column-->
+						<div class="column is-9">
+							<div v-if="currentChannel">
+								<keep-alive>
+									<current-channel v-bind:channel="currentChannel"></current-channel>
+								</keep-alive>
+							</div>
+						</div><!--/.column-->
+					</div><!--/.columns-->
+				</div><!--/.container-->
+			</div><!--/.section-->
+		</div><!--/#app-->
+
+		<script src="/static/js/vendor/axios.min.js"></script>
+		<script src="/static/js/vendor/vue.js"></script>
+		<script src="/static/js/home.js"></script>
+		<script src="/static/js/main.js"></script>
+		<script>
+			if(navigator.serviceWorker){
+				if(!navigator.serviceWorker.controller){
+					navigator.serviceWorker.register("/sw.js")
+				}
+			}
+		</script>
+	</body>
+</html>

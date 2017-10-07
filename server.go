@@ -23,7 +23,7 @@ func main() {
 	if err := os.Chdir(*dir); err != nil {
 		log.Fatalf("unable to change into working directory: %v", *dir)
 	}
-	if err := getChannels(); err != nil {
+	if err := LoadChannels(); err != nil {
 		log.Fatalf("unable to get channels; %v", err)
 	}
 	log.Printf("Launching http server at %v", *listenAddr)
@@ -32,6 +32,7 @@ func main() {
 func serve(listenAddr string) error {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", handleHome)
+	mux.HandleFunc("/polymer", handlePolymer)
 	mux.HandleFunc("/api", handleAPI)
 
 	fs := http.FileServer(http.Dir("static"))
@@ -57,17 +58,23 @@ func handleStaticFile(w http.ResponseWriter, r *http.Request) {
 	fn := filepath.Join("static", r.URL.Path)
 	http.ServeFile(w, r, fn)
 }
-func handleHome(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
+func renderHTML(w http.ResponseWriter, r *http.Request, filename string) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Add("X-Content-Type-Options", "nosniff")
 	w.Header().Add("X-XSS-Protection", "1; mode=block")
 	w.Header().Add("X-Frame-Options", "SAMEORIGIN")
 	w.Header().Add("X-UA-Compatible", "IE=edge")
-	http.ServeFile(w, r, "index.html")
+	http.ServeFile(w, r, filename)
+}
+func handleHome(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
+	renderHTML(w, r, filepath.Join("vue", "index.html"))
+}
+func handlePolymer(w http.ResponseWriter, r *http.Request) {
+	renderHTML(w, r, filepath.Join("polymer", "index.html"))
 }
 
 // APIResponse is the /api response structure, rendered as json
@@ -125,6 +132,13 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 		api.render(w)
 		return
 	}
+	if resource == "intlchannels" {
+		api := &APIResponse{
+			Data: intlchannels,
+		}
+		api.render(w)
+		return
+	}
 }
 
 type channel struct {
@@ -142,25 +156,39 @@ func (ch *channel) prep() {
 	}
 }
 
-var channels []channel
+var channels, intlchannels []channel
 
-func getChannels() error {
-	dat, err := ioutil.ReadFile("channels.json")
+// LoadChannels loads channels from their respective json files
+func LoadChannels() error {
+	chs, err := getChannels("channels.json")
 	if err != nil {
 		return err
+	}
+	channels = chs
+	log.Printf("%v", channels)
+	if intlchannels, err = getChannels("intlchannels.json"); err != nil {
+		return err
+	}
+	return nil
+
+}
+func getChannels(filename string) ([]channel, error) {
+	dat, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, err
 	}
 	var chs []channel
 	err = json.Unmarshal(dat, &chs)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if len(chs) < 1 {
-		return errors.New("no channels found in channels.json")
+		return nil, errors.New("no channels found in channels.json")
 	}
+	var channels []channel
 	for _, ch := range chs {
 		ch.prep()
 		channels = append(channels, ch)
 	}
-	return nil
-
+	return channels, nil
 }
