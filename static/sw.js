@@ -3,6 +3,7 @@ self.addEventListener("install", function(event){
 	event.waitUntil(
 		caches.open(cacheName).then(function(cache){
 			cache.addAll([
+				"/",
 				"/static/css/font-awesome/css/font-awesome.min.css",
 				"/static/css/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0",
 				"/static/css/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0",
