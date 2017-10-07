@@ -17,6 +17,7 @@ docker run -d --name $CONTAINER --restart always \
 	-v /etc/ssl:/etc/ssl:ro \
 	-v /etc/localtime:/etc/locatime:ro \
 	-v $(pwd):/tv \
+	-v $(pwd)/static/js/vendor/vue.min.js:/tv/static/js/vendor/vue.js \
 	debian:jessie /tv/tv -dir /tv
 
 docker logs -f $CONTAINER
