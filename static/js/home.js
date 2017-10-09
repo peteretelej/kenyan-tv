@@ -17,8 +17,8 @@ Vue.component('channel-listing',{
 Vue.component("current-channel",{
 	props: ['channel'],
 	template: '<div>'+
-	'<div style="display:block">'+
-	'<iframe :key="channel.id" width="854px" height="480px" v-bind:src="channel.livestream" frameborder="0" allowfullscreen></iframe>'+
+	'<div class="iframe-wrap">'+
+	'<iframe :key="channel.id" v-bind:src="channel.livestream" frameborder="0" allowfullscreen></iframe>'+
 	'</div>'+
 	'</div>'
 } )

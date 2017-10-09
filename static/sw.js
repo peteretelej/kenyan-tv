@@ -1,4 +1,4 @@
-var cacheName = "theoktv-v4"
+var cacheName = "theoktv-v5"
 self.addEventListener("install", function(event){
 	event.waitUntil(
 		caches.open(cacheName).then(function(cache){

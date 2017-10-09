@@ -23,6 +23,14 @@
 			a.channel-link{ color: #eee; }
 			a.channel-link:hover{color: #333 }
 			body,.footer{background-color:#333}
+			.iframe-wrap{
+				display:block;  
+			}
+			.iframe-wrap > iframe{
+				height:480px; width:854px;
+				max-width:100%; max-height:100%;
+				
+			}
 		</style>
 	</head>
 	<body style="">
@@ -46,7 +54,7 @@
 			</div><!--/offline-->
 			<div class="section" v-cloak>
 				<div class="container">
-					 <div class="columns" v-if="currentView==='home'">
+					 <div class="columns is-flex-mobile" v-if="currentView==='home'">
 						<div class="column is-2">
 							<div class="menu" style="">
 								<div class="menu-label">
