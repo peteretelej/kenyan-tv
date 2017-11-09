@@ -152,7 +152,7 @@ func (ch *channel) prep() {
 	case "K24":
 		ch.Livestream = "https://livestream.com/accounts/17606245/events/4832042/player?width=200&amp;height=200&amp;autoPlay=false&amp;mute=false"
 	default:
-		ch.Livestream = fmt.Sprintf("https://youtube.com/embed/live_stream?channel=%s", ch.ID)
+		ch.Livestream = fmt.Sprintf("https://youtube.com/embed/live_stream?channel=%s&autoplay=1", ch.ID)
 	}
 }
 
